@@ -1,0 +1,13 @@
+<h3>Clientes</h3>
+<div>
+    <ul>
+        <li *ngFor="let customer of customers">
+            <p *ngIf="customer.fullName !== 'cliente1'">{{customer.fullName}} {{customer.email}} {{customer.phone}}</p>
+        </li>
+    </ul>
+
+    <div *ngIf="userLogged">
+        <button (click)="cerrarSesion()">Cerrar Sesión</button>
+    </div>
+    <button (click)="anadirCliente()" >Añadir cliente</button>
+</div>

@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'proyecto2';
 
-  alertHi(){
+  alertHi() {
     alert("HOLA ALBANIS!!!")
   }
 }
