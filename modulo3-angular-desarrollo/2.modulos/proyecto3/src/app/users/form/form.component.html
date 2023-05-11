@@ -1,7 +1,34 @@
-<h2>Formulario de usuarios</h2>
+<!-- <h2>Formulario de usuarios</h2>
 
 <p>Nombre escrito: {{fullName}}</p>
 
 <input type="text" [(ngModel)]="fullName" />
 
 <button (click)="resetFullName()">Limpiar</button>
+
+<br>
+<br>
+<label>Numero 1</label>
+<br>
+<input type="number" [(ngModel)]="numero1" />
+<br>
+<br>
+<label>Numero 2</label>
+<br>
+<input type="number" [(ngModel)]="numero2" />
+<br>
+<br>
+<div *ngIf="resultadoSuma() != 0">
+    Resultado suma: {{resultadoSuma()}}
+</div> -->
+<br>
+<br>
+<p>Array {{numeros}}</p>
+<br>
+<br>
+<p *ngFor="let item of numeros">{{item}}</p>
+<input type="number" [(ngModel)]="numberToAdd" />
+<button (click)="addnumber()">Agrega</button>
+<button (click)="clearArray()">Limpiar</button>
+
+

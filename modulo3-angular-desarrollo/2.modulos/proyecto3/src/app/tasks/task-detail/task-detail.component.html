@@ -4,4 +4,6 @@
 
 <p>Title{{task.title}}</p>
 
-<p>Hours: {{task.hours}}</p>
+<p [ngStyle]="{'font-zize':idSize,'background-color': idbg}"> Id: {{task.hours}}</p>
+
+<p [ngStyle]="{'color': fontcolor}">Hours:{{task.hours}}</p>

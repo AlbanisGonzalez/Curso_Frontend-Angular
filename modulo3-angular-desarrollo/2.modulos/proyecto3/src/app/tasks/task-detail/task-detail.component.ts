@@ -6,9 +6,10 @@ import { ITask } from '../task.model';
   styleUrls: ['./task-detail.component.scss']
 })
 export class TaskDetailComponent {
-task : ITask ={
-  id: 1,
-  title: 'Modulos con Angular',
-  hours: 5
-}
+  fontcolor: string = 'red';
+  task: ITask = {
+    id: 1,
+    title: 'Modulos con Angular',
+    hours: 5
+  }
 }
