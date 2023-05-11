@@ -30,10 +30,16 @@ export class EventService {
   }
 
   //create Crear un nuevo objeto TODO Event en el servidor
-  create(event: IEvent): Observable<IEvent>{
-   return this.httpClient.post<IEvent>(this.url, event);
+  create(event: IEvent): Observable<IEvent> {
+    return this.httpClient.post<IEvent>(this.url, event);
   }
 
   //update
+  update(event: IEvent): Observable<IEvent>{
+    return this.httpClient.put<IEvent>(`${this.url}/${event.id}`, event);
+  }
   //deleteById
+  deleteById(id:number):void{
+    this.httpClient.delete(`${this.url}/${id}`);
+  }
 }
