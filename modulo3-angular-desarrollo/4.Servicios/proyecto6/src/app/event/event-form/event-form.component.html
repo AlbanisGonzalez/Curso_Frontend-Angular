@@ -1,0 +1,11 @@
+<p>event-form works!</p>
+<h3>Titulo event</h3>
+<input type="text" [(ngModel)]="title" />
+<button (click) ="create()">Crear event</button>
+
+<div *ngIf= "createdEvent">
+    se ha creado correctamente el
+    vent con id asignado
+    {{createdEvent.id}}
+</div>
+

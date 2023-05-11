@@ -1,0 +1,22 @@
+<h2>Listado de Eventos TODOs </h2>
+
+<button class="button" (click)="findAllByCompletedTrue()">
+    Completas
+</button>
+
+<button class="button" (click)="findAllByCompletedFalse()">
+    Incompletas
+</button>
+
+<button class="button" (click)="findAll()">
+    Tareas
+</button>
+
+<ul>
+    <li *ngFor="let event of events">
+        <span [ngClass]="event.completed ? 'completed': 'uncompleted'">
+            {{event.id}} {{event.userID}} {{event.title}} {{event.completed}}
+        </span>
+
+    </li>
+</ul>
