@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { IUser } from '../user.model';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-list',
@@ -9,12 +10,51 @@ import { IUser } from '../user.model';
 })
 export class UserListComponent implements OnInit {
   users:IUser[] =[];
+  error: string ="";
   constructor(private userService: UserService) {
 
   }
   ngOnInit(): void {
-   this.userService.findAll().subscribe
-   (data=>console.log(data));
-   
+    // https://angular.io/guide/observables#defining-observers
+
+    // Opción 1: función next simple
+    // this.userService.findAll().subscribe(data => this.users = data.body ?? []);
+
+    // Opción 2:  función next bloque {}
+    // this.userService.findAll().subscribe(data => {
+    //   console.log(data);
+    //   console.log(data.status);
+    //   console.log(data.body);
+    //   this.users = data.body ?? [];
+    // });
+
+    // Opción 3: función next (obligatoria), función error (opcional), complete (opcional)
+    // this.userService.findAll().subscribe({
+    //   next: (data: HttpResponse<IUser[]>) => this.users = data.body ?? [],
+    //   error: (err: Error) => console.error('Error: ' + err.message),
+    //   complete: () => console.log('findAll completado'),
+    // });
+
+    // Opción 4: funciones con bloques
+    this.userService.findAll().subscribe({
+      next: (data: HttpResponse<IUser[]>) => {
+        console.log(data.status);
+        this.users = data.body ?? [];
+      },
+      error: (err: Error) => { 
+        console.error('Error: ' + err.message);
+        this.showError(err);
+      },
+      complete: () => console.log('findAll completado'),
+    });
+
   }
+
+  showError(err: Error) {
+    this.error = err.message;
+    setTimeout(() => this.error = "", 5000);
+  }
+
+  
 }
+
