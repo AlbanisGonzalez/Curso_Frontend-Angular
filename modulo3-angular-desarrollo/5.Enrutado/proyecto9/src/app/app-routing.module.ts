@@ -4,11 +4,9 @@ import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
 import { PhotoDetailComponent } from './photo-detail/photo-detail.component';
 import { PhotoFormComponent } from './photo-form/photo-form.component';
 
-
-// Opciòn 1 
 const routes: Routes = [
   {
-    path: '', // pagina home/ pagina de inicio
+    path: 'photo-gallery',
     component: PhotoGalleryComponent
   },
   {
@@ -19,8 +17,13 @@ const routes: Routes = [
     path: 'photo-form',
     component: PhotoFormComponent
   },
+  {
+    path: '', redirectTo: '/photo-gallery', pathMatch: 'full'
+  },
 
-];
+  {
+    path: '**', redirectTo: '/photo-gallery', pathMatch: 'full'
+  }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
