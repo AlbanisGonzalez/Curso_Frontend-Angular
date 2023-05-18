@@ -1,4 +1,4 @@
-nhimport { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventService } from '../event.service';
 import { IEvent } from '../event.model';
 
