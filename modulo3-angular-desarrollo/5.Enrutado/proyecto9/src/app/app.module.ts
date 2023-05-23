@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
 import { PhotoDetailComponent } from './photo-detail/photo-detail.component';
 import { PhotoFormComponent } from './photo-form/photo-form.component';
+import { PhotosGalleryComponent } from './photos-gallery/photos-gallery.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PhotoGalleryComponent,
     PhotoDetailComponent,
-    PhotoFormComponent
+    PhotoFormComponent,
+    PhotosGalleryComponent
   ],
   imports: [
     BrowserModule,
