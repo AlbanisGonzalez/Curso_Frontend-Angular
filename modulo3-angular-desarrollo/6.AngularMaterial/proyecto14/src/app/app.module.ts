@@ -9,6 +9,10 @@ import{HttpClientModule}from'@angular/common/http';
 import{MatTableModule}from '@angular/material/table';
 import{MatIconModule}from '@angular/material/icon';
 import{MatButtonModule} from'@angular/material/button';
+import{MatCardModule} from'@angular/material/card';
+import{MatGridList, MatGridListModule} from'@angular/material/grid-list';
+import { MatDividerModule} from '@angular/material/divider';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +25,11 @@ import{MatButtonModule} from'@angular/material/button';
     HttpClientModule,
     MatTableModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatDividerModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
