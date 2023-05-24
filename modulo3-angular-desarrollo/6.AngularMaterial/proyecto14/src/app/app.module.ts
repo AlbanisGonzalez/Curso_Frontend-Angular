@@ -1,23 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommentListComponent } from './comment-list/comment-list.component';
 import { CommentDetailComponent } from './comment-detail/comment-detail.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import{HttpClientModule}from'@angular/common/http';
-import{MatTableModule}from '@angular/material/table';
-import{MatIconModule}from '@angular/material/icon';
-import{MatButtonModule} from'@angular/material/button';
-import{MatCardModule} from'@angular/material/card';
-import{MatGridList, MatGridListModule} from'@angular/material/grid-list';
-import { MatDividerModule} from '@angular/material/divider';
-
+import { FooterComponent } from './layout/footer/footer.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
     CommentListComponent,
-    CommentDetailComponent
+    CommentDetailComponent,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,8 @@ import { MatDividerModule} from '@angular/material/divider';
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatToolbarModule
 
   ],
   providers: [],
