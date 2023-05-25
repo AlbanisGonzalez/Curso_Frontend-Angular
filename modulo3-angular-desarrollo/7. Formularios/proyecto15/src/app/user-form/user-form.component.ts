@@ -11,13 +11,14 @@ userForm = new FormGroup({
   email: new FormControl(''),
   fullName: new FormControl(''),
   age:new FormControl(''),
-  salary:new FormControl(''),
+  salary:new FormControl('12600'),
   isStudent: new FormControl(true),
-  birthday: new FormControl(),
-  entryHour: new FormControl(),
-  bookingDate: new FormControl(),
-  jobCategory: new FormControl(),
-  company: new FormControl(),
+  birthday: new FormControl(null),
+  entryHour: new FormControl(null),
+  bookingDate: new FormControl(null),
+  jobCategory: new FormControl(''),
+  company: new FormControl(''), // Nota: no poner null ni dejarlo sin string
+  hobbies: new FormControl([]),// selector multilple
 
 });
 save(): void {
