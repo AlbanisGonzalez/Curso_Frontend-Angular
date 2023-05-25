@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserFormValidationComponent } from './user-form-validation/user-form-validation.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
-    UserFormComponent
-  ],
+    UserFormComponent,
+      UserFormValidationComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
