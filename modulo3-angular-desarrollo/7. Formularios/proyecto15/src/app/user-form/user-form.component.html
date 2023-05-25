@@ -91,6 +91,15 @@
       <option value="travel">Viajar</option>
     </select>
   </div>
+  <div>
+    <label for="bio">Descripción o biografía</label>
+    <textarea id="bio" formControlName="bio" rows="10"></textarea>
+  </div>
+  <div>
+    <img *ngIf="imageSrc" src="{{imageSrc}}"style="max-width: 200px;">
+    <label for="avatar">Foto de perfil o avatar</label>
+    <input type="file" (change)="uploadFile($event)">
 
+  </div>
   <button type="submit">Guardar</button>
 </form>
