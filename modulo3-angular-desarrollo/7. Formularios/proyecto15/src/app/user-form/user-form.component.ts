@@ -17,6 +17,7 @@ userForm = new FormGroup({
   entryHour: new FormControl(),
   bookingDate: new FormControl(),
   jobCategory: new FormControl(),
+  company: new FormControl(),
 
 });
 save(): void {
@@ -30,6 +31,7 @@ save(): void {
   console.log(this.userForm.get('entryHour')?.value);
   console.log(typeof this.userForm.get('bookingDate')?.value);
   console.log(this.userForm.get('jobCategory')?.value);
+  console.log(this.userForm.get('company')?.value);
 
 
 
