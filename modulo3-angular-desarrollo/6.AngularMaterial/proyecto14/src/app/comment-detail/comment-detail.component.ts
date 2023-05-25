@@ -10,16 +10,15 @@ import { IComment } from '../models/comment.model';
 })
 export class CommentDetailComponent implements OnInit {
   comment: IComment | undefined;
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private CommentService: CommentService
-  ) {}
+
+  constructor(private activatedRoute: ActivatedRoute,
+              private commentService: CommentService) {}
+
+
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe(params => {
       const id = parseInt(params['id'], 10);
-      this.CommentService.findById(id).subscribe(
-        (data) => (this.comment = data)
-      );
+      this.commentService.findById(id).subscribe(data => this.comment = data);
     });
   }
 }
