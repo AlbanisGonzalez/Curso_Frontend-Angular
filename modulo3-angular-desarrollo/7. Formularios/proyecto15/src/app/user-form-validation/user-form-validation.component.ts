@@ -13,8 +13,12 @@ export class UserFormValidationComponent  {
     nickName: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
     salary: new FormControl(null, [Validators.required, Validators.min(16500), Validators.max(100000)]),
     nif: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]$')]),
-    phone: new FormControl(null, [Validators.pattern('^[679]{1}[0-9]{8}$')])
+    phone: new FormControl(null, [Validators.pattern('^[679]{1}[0-9]{8}$')]),
+    password: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
+
   });
+
+
 
   save(): void {
     if(this.userForm.valid) {
