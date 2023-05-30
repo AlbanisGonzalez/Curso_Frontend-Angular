@@ -12,6 +12,7 @@ import{MatButtonModule} from '@angular/material/button';
 import{MatIconModule} from '@angular/material/icon';
 import{MatCheckboxModule} from '@angular/material/checkbox';
 import{MatRadioModule} from '@angular/material/radio'
+import{MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import{MatRadioModule} from '@angular/material/radio'
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

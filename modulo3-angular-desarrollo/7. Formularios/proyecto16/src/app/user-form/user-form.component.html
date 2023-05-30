@@ -61,6 +61,25 @@
       userForm.get('salary')?.touched">El salario debe estar comprendido en un rango de 16500 y 10000€
     </mat-error>
   </mat-form-field>
+
+
+
+  <mat-form-field>
+    <mat-label>¿En que empresa trabajas?</mat-label>
+    <mat-select formControlName="company" name="company">
+      <mat-option>Ninguna</mat-option>
+      <mat-option *ngFor="let company of companies" [value]="company.id">
+        {{company.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="userForm.get('company')?.invalid &&
+      userForm.get('company')?.touched">Debe elegir una empresa
+    </mat-error>
+
+  </mat-form-field>
+
+
+
   <div>
     <div><label>¿En que departamento trabajas?</label> </div>
     <mat-radio-group formControlName="department">
