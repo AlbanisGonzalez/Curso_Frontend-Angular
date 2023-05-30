@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-interface ICompany{
+interface ICompany {
   id: number,
   name: string;
 }
@@ -10,43 +10,46 @@ interface ICompany{
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent {
+  hobbies: string[] = ['sports', 'music', 'travel'];
   companies: ICompany[] = [
-    {id:1, name: "Axpe"},
-    {id:2, name: "Softex"},
-    {id:3, name: "Santander"},
-    {id:4, name: "Securitas"},
+    { id: 1, name: "Axpe" },
+    { id: 2, name: "Softex" },
+    { id: 3, name: "Santander" },
+    { id: 4, name: "Securitas" },
 
   ];
-  hide = true;
-  userForm = new FormGroup({
-    fullName: new FormControl('',[Validators.required]),
+    hide = true;
+    userForm = new FormGroup({
+    fullName: new FormControl('', [Validators.required]),
     bio: new FormControl('', [Validators.required, Validators.maxLength(256)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     isStudent: new FormControl(false),
     acceptConditions: new FormControl(false, [Validators.requiredTrue]),
     password: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
     salary: new FormControl(null, [Validators.min(16500), Validators.max(100000)]),
-      // Radio
+    // Radio
     department: new FormControl('', [Validators.required]),
-      // Select
+    // Select
     company: new FormControl('', [Validators.required]),
+    // select Multiple
+    hobbies: new FormControl([])
 
 
 
-      // Password con opción de ver contraseña
-      // Varios campos en la misma línea
-      // Formato númerico
-      // Datepicker
-      // Stepper
-      // Radio
-      // Chips
-      // autocomplete
-      // Sidle toggle
-      // Slider
+    // Password con opción de ver contraseña
+    // Varios campos en la misma línea
+    // Formato númerico
+    // Datepicker
+    // Stepper
+    // Radio
+    // Chips
+    // autocomplete
+    // Sidle toggle
+    // Slider
 
   });
 
-  save(): void{
+  save(): void {
 
   }
 }

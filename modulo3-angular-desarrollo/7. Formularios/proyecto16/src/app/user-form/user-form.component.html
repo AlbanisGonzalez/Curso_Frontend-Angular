@@ -75,13 +75,25 @@
     <mat-error *ngIf="userForm.get('company')?.invalid &&
       userForm.get('company')?.touched">Debe elegir una empresa
     </mat-error>
+  </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Hobbies o intereses</mat-label>
+    <mat-select formControlName="hobbies" multiple>
+      <mat-select-trigger>
+        {{userForm.get('hobbies')?.value?.[0] || ''}}
+        <span *ngIf="(userForm.get('hobbies')?.value?.length || 0) > 1" class="example-additional-selection">
+          (+{{(userForm.get('hobbies')?.value?.length || 0) - 1}} {{userForm.get('hobbies')?.value?.length === 2 ? 'other' : 'others'}})
+        </span>
+      </mat-select-trigger>
+      <mat-option *ngFor="let hobbie of hobbies" [value]="hobbie">{{hobbie}}</mat-option>
+    </mat-select>
+    <mat-hint>Puedes seleccionar más de uno. </mat-hint>
   </mat-form-field>
 
 
-
   <div>
-    <div><label>¿En que departamento trabajas?</label> </div>
+    <div><label>¿En qué departamento trabajas?</label> </div>
     <mat-radio-group formControlName="department">
       <mat-radio-button value="development">Desarrollo</mat-radio-button>
       <mat-radio-button value="marketing">Marketing</mat-radio-button>
