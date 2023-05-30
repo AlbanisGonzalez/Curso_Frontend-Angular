@@ -15,7 +15,9 @@ export class UserFormComponent {
     isStudent: new FormControl(false),
     acceptConditions: new FormControl(false, [Validators.requiredTrue]),
     password: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
-    salary: new FormControl(null, [Validators.min(16500), Validators.max(100000)])
+    salary: new FormControl(null, [Validators.min(16500), Validators.max(100000)]),
+    department: new FormControl('', [Validators.required]),
+
 
       // Password con opción de ver contraseña
       // Varios campos en la misma línea

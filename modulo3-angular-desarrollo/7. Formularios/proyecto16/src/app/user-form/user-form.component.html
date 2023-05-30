@@ -49,19 +49,30 @@
                       userForm.get('password')?.getError('pattern')">
       Contraseña debe ser entre 8 y 20 caracteres utilizando letras, números.
     </mat-error>
-    </mat-form-field>
+  </mat-form-field>
 
 
-    <mat-form-field floatLabel="always">
-      <mat-label>Salario</mat-label>
-      <input matInput type="number" class="example-right-align" placeholder="0" formControlName="salary">
-      <span matTextPrefix>&euro; &nbsp;</span>
-      <span matTextSuffix>.00</span>
-      <mat-error *ngIf="userForm.get('salary')?.invalid &&
+  <mat-form-field floatLabel="always">
+    <mat-label>Salario</mat-label>
+    <input matInput type="number" class="example-right-align" placeholder="0" formControlName="salary">
+    <span matTextPrefix>&euro; &nbsp;</span>
+    <span matTextSuffix>.00</span>
+    <mat-error *ngIf="userForm.get('salary')?.invalid &&
       userForm.get('salary')?.touched">El salario debe estar comprendido en un rango de 16500 y 10000€
-
-      </mat-error>
-    </mat-form-field>
+    </mat-error>
+  </mat-form-field>
+  <div>
+    <div><label>¿En que departamento trabajas?</label> </div>
+    <mat-radio-group formControlName="department">
+      <mat-radio-button value="development">Desarrollo</mat-radio-button>
+      <mat-radio-button value="marketing">Marketing</mat-radio-button>
+      <mat-radio-button value="blockchain">Blockchain</mat-radio-button>
+    </mat-radio-group>
+    <mat-error *ngIf="userForm.get('department')?.invalid &&
+      userForm.get('department')?.touched">
+      Es obligatorio seleccionar un departamento.
+    </mat-error>
+  </div>
 
   <mat-checkbox formControlName="isStudent">¿Es estudiante? </mat-checkbox>
   <mat-checkbox formControlName="acceptConditions">He leído y acepto los términos y condiciones, cedo mi alma.
