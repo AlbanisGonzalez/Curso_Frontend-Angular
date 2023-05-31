@@ -28,7 +28,7 @@ export class BookService {
 
   // update
   update(book: IBook): Observable<IBook> {
-    return this.httpClient.put<IBook>(`${this.url}/${event.id}`, event);
+    return this.httpClient.put<IBook>(`${this.url}/${book.id}`, event);
   }
 
   // deleteById
