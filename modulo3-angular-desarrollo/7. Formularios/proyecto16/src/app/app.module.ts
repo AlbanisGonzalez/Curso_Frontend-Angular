@@ -13,7 +13,8 @@ import{MatIconModule} from '@angular/material/icon';
 import{MatCheckboxModule} from '@angular/material/checkbox';
 import{MatRadioModule} from '@angular/material/radio'
 import{MatSelectModule} from '@angular/material/select';
-
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
 
@@ -32,9 +33,13 @@ import{MatSelectModule} from '@angular/material/select';
     MatIconModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue:'es-ES'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

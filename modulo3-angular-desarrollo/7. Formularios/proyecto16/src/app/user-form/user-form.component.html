@@ -83,12 +83,51 @@
       <mat-select-trigger>
         {{userForm.get('hobbies')?.value?.[0] || ''}}
         <span *ngIf="(userForm.get('hobbies')?.value?.length || 0) > 1" class="example-additional-selection">
-          (+{{(userForm.get('hobbies')?.value?.length || 0) - 1}} {{userForm.get('hobbies')?.value?.length === 2 ? 'other' : 'others'}})
+          (+{{(userForm.get('hobbies')?.value?.length || 0) - 1}} {{userForm.get('hobbies')?.value?.length === 2 ?
+          'other' : 'others'}})
         </span>
       </mat-select-trigger>
       <mat-option *ngFor="let hobbie of hobbies" [value]="hobbie">{{hobbie}}</mat-option>
     </mat-select>
     <mat-hint>Puedes seleccionar más de uno. </mat-hint>
+  </mat-form-field>
+
+  <table cellspacing="0">
+
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input matInput placeholder="Ex. San Francisco" formControlName="city">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Postal Code</mat-label>
+          <input matInput type="number" min="0000" max="99999" placeholder="Ex. 94105" formControlName="postalCode">
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+
+  <mat-form-field>
+    <mat-label>Fecha de nacimiento </mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="birthday" [min]="minBirthday" [max]="maxBirthday">
+    <mat-hint>DD/MM/YYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>Periodo de actividad</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" formControlName="jobStartDate">
+      <input matEndDate placeholder="End date" formControlName="jobEndDate">
+    </mat-date-range-input>
+    <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
 
 

@@ -18,8 +18,10 @@ export class UserFormComponent {
     { id: 4, name: "Securitas" },
 
   ];
-    hide = true;
-    userForm = new FormGroup({
+  hide = true;
+  minBirthday = new Date(1910, 0, 1);
+  maxBirthday = new Date(2005, 0, 1);
+  userForm = new FormGroup({
     fullName: new FormControl('', [Validators.required]),
     bio: new FormControl('', [Validators.required, Validators.maxLength(256)]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -32,16 +34,21 @@ export class UserFormComponent {
     // Select
     company: new FormControl('', [Validators.required]),
     // select Multiple
-    hobbies: new FormControl([])
+    hobbies: new FormControl([]),
+
+    city: new FormControl(''),
+    postalCode: new FormControl([Validators.pattern('^[0-9]{5}$')]),
+    // Datepicker
+    birthday: new FormControl(null),
+    jobStartDate: new FormControl(null),
+    jobEndDate: new FormControl(null)
 
 
 
     // Password con opción de ver contraseña
     // Varios campos en la misma línea
     // Formato númerico
-    // Datepicker
     // Stepper
-    // Radio
     // Chips
     // autocomplete
     // Sidle toggle
