@@ -8,8 +8,13 @@
     </a>
     <span class="example-spacer"></span>
 
-    <button mat-button [matMenuTriggerFor]="menu">Libros</button>
-    <mat-menu #menu="matMenu">
+    <button mat-button [matMenuTriggerFor]="menuBooks">Libros</button>
+    <mat-menu #menuBooks="matMenu">
+      <button mat-menu-item>Tabla libros</button>
+      <button mat-menu-item>Galería libros</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="menuAuthors">Autores</button>
+    <mat-menu #menuAuthors="matMenu">
       <button mat-menu-item>Tabla libros</button>
       <button mat-menu-item>Galería libros</button>
     </mat-menu>
