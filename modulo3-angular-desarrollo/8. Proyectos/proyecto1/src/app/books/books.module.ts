@@ -11,22 +11,24 @@ import{MatTableModule} from '@angular/material/table';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookFormComponent } from './book-form/book-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from "../shared/shared.module";
 
 
 @NgModule({
-  declarations: [
-    BookListComponent,
-    BookDetailComponent,
-    BookFormComponent,
-    BookGalleryComponent
-  ],
-  imports: [
-    CommonModule,
-    BooksRoutingModule,
-    MatIconModule,
-    HttpClientModule,
-    MatButtonModule,
-    MatTableModule
-  ]
+    declarations: [
+        BookListComponent,
+        BookDetailComponent,
+        BookFormComponent,
+        BookGalleryComponent,
+    ],
+    imports: [
+        CommonModule,
+        BooksRoutingModule,
+        MatIconModule,
+        HttpClientModule,
+        MatButtonModule,
+        MatTableModule,
+        SharedModule
+    ]
 })
 export class BooksModule { }
