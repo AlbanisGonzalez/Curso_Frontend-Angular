@@ -1,1 +1,36 @@
-<p>book-detail works!</p>
+<mat-grid-list cols="3" rowHeight="125px" *ngIf="book">
+  <mat-grid-tile rowspan="2">
+
+    <img src="{{book.photo}}" style="max-width: 100%;">
+
+  </mat-grid-tile>
+
+  <mat-grid-tile rowspan="2">
+
+    <h2>Libro {{book.title}}</h2>
+    <p>Fecha lanzamiento: {{book.release | date:'dd/MM/YYYY'}}</p>
+    <p>Número páginas: {{book.numPages}}</p>
+
+    <h3>Sinopsis</h3>
+    <p>{{book.sinopsis}}</p>
+
+  </mat-grid-tile>
+
+  <mat-grid-tile rowspan="2">
+    <h2>{{book.price}}</h2>
+    <p>Envío gratuito</p>
+
+    <button mat-fab extended color="primary">
+      <mat-icon>shopping_cart</mat-icon>
+      Comprar
+    </button>
+
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="3" rowspan="1">
+    <p>Todos nuestros libros son escritos a mano hasta altas horas
+      de la madrugada.
+    </p>
+  </mat-grid-tile>
+
+</mat-grid-list>

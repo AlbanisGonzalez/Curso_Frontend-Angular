@@ -1,3 +1,4 @@
+import { MatGridListModule } from '@angular/material/grid-list';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,7 +14,6 @@ import { BookFormComponent } from './book-form/book-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from "../shared/shared.module";
 
-
 @NgModule({
     declarations: [
         BookListComponent,
@@ -28,7 +28,8 @@ import { SharedModule } from "../shared/shared.module";
         HttpClientModule,
         MatButtonModule,
         MatTableModule,
-        SharedModule
+        SharedModule,
+        MatGridListModule
     ]
 })
 export class BooksModule { }

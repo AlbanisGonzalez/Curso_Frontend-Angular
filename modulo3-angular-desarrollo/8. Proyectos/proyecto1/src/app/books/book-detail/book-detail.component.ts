@@ -12,7 +12,7 @@ export class BookDetailComponent {
   book: IBook | undefined;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private BookService : BookService) {}
+    private BookService: BookService) { }
 
 
   ngOnInit(): void {
