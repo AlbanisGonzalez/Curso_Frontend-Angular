@@ -11,7 +11,7 @@ const routes: Routes = [
       component: BookListComponent
     },
     {
-      path: 'id',
+      path: ':id',
       component: BookDetailComponent
     },
     {
