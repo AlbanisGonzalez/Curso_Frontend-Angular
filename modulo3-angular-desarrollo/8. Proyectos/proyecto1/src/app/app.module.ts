@@ -12,12 +12,14 @@ import { MatIconModule } from '@angular/material/icon';
 import{MatToolbarModule} from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BooksModule } from './books/books.module';
+import { BookGalleryComponent } from './book-gallery/book-gallery.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    BookGalleryComponent
   ],
   imports: [
     BrowserModule,
