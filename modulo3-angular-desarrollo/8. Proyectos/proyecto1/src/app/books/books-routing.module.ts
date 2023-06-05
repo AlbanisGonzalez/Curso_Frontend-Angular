@@ -7,28 +7,30 @@ import { BookFormComponent } from './book-form/book-form.component';
 
 const routes: Routes = [
   {
-      path: '',
-      component: BookListComponent
-    },
-    {
-      path: ':id',
-      component: BookDetailComponent
-    },
-    {
-      path: 'galerry',
-      component: BookGalleryComponent
-    },
-    {
-      path: 'new',
-      component: BookGalleryComponent
-    },
-    {
-      path: ':id/edit',
-      component: BookFormComponent
-    },
-    {
-      path: '', redirectTo: '', pathMatch: 'full'
-    },
+    path: '',
+    component: BookListComponent
+  },
+  {
+    path: 'gallery',
+    component: BookGalleryComponent
+  },
+  {
+    path: 'new',
+    component: BookFormComponent
+  },
+
+  {
+    path: ':id',
+    component: BookDetailComponent
+  },
+
+  {
+    path: ':id/edit',
+    component: BookFormComponent
+  },
+  {
+    path: '', redirectTo: '', pathMatch: 'full'
+  },
 
 ];
 

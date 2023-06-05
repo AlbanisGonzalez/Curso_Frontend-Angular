@@ -1,1 +1,23 @@
-<p>book-form works!</p>
+
+<h2>Creación de libros </h2>
+
+<form [formGroup]="bookForm" (submit)="save()">
+
+  <mat-form-field>
+    <mat-label>Titulo</mat-label>
+    <input matInput type="text" formControlName="title">
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>Sinopsis</mat-label>
+    <textarea matInput #message maxlength="1000" rows="5" placeholder="Ex. I need help with..." formControlName="sinopsis">
+    </textarea>
+  </mat-form-field>
+
+  <button mat-fab extended type="submit"
+ [disabled]="bookForm.invalid">
+ <mat-icon>send</mat-icon>
+ Enviar
+</button>
+</form>
