@@ -99,6 +99,16 @@
       "photo": "http://dummyimage.com/217x100.png/cc0000/ffffff",
       "price": 26.4,
       "authorId": 10
+    },
+    {
+      "id": 11,
+      "title": "Las  maravilla de adan ",
+      "sinopsis": "necesito mil cosas ",
+      "release": "2023-06-05T08:49:58.458Z",
+      "numPages": 0,
+      "photo": "",
+      "price": 0,
+      "authorId": 0
     }
   ],
   "authors": [
