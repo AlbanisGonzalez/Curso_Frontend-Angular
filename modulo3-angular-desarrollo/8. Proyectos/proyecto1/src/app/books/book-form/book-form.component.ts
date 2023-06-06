@@ -9,15 +9,21 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './book-form.component.html',
   styleUrls: ['./book-form.component.scss']
 })
+/*
+2. En HTML agregar un nuevo matformfield disabled que muestre id pero no lo edite
+3. En save hacer la distinción de guardar o editar
+4. en loadForm hay que cargar el id*/
+
 export class BookFormComponent implements OnInit {
 
 
   bookForm = new FormGroup({
+    id: new FormControl(0),
     title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
     sinopsis: new FormControl('', [Validators.maxLength(1000)]),
     numPages: new FormControl(0, [Validators.min(30)]),
-    price: new FormControl(0, [Validators.required, Validators.min(5), Validators.max(500), Validators.pattern('^[0-9]+.[0-9]{1,2}$')]),
-    release: new FormControl(new Date),
+    price: new FormControl(0, [Validators.required, Validators.min(5), Validators.max(500), Validators.pattern("^[0-9]+([.,][0-9]{1,2})?$")]),
+    release: new FormControl(new Date()),
 
     // // photo: new FormControl(''),
     // // authorId: new FormControl(null,[Validators.required])
@@ -36,6 +42,7 @@ export class BookFormComponent implements OnInit {
   }
   loadBookForm(book: IBook): void {
     this.bookForm.reset({
+      id: book.id,
       title: book.title,
       numPages: book.numPages,
       price: book.price,
@@ -44,6 +51,7 @@ export class BookFormComponent implements OnInit {
   }
 
   save(): void {
+    let id = this.bookForm.get('id')?.value ?? 0;
     let title = this.bookForm.get('title')?.value ?? '';
     let sinopsis = this.bookForm.get('sinopsis')?.value ?? '';
     let numPages = this.bookForm.get('numPages')?.value ?? 30;
@@ -55,7 +63,7 @@ export class BookFormComponent implements OnInit {
 
     // TODO añadir validación extra de datos, si alguno está mal, hacer return y mostrar error y no guardar.
     let book: IBook = {
-      id: 0,
+      id: id,
       title: title,
       sinopsis: sinopsis,
       release: release,
@@ -64,6 +72,10 @@ export class BookFormComponent implements OnInit {
       price: price,
       authorId: 0
     }
-    this.bookService.create(book).subscribe(book => this.router.navigate(['books', book.id]));
+    if (id === 0)
+      this.bookService.create(book).subscribe(book => this.router.navigate(['/books', book.id]));
+    else
+      this.bookService.update(book).subscribe(book => this.router.navigate(['/books', book.id]));
+
   }
 }

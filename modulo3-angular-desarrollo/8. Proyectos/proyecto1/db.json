@@ -1,14 +1,8 @@
 {
   "books": [
     {
-      "id": 1,
-      "title": "Toy Story That Time Forgot",
-      "sinopsis": "at vulputate vitae nisl aenean lectus pellentesque eget nunc donec",
-      "release": "2023-04-29T22:00:00.000Z",
-      "numPages": 408,
-      "photo": "http://dummyimage.com/192x100.png/dddddd/000000",
-      "price": 37.36,
-      "authorId": 6
+      "isTrusted": true,
+      "id": 1
     },
     {
       "id": 2,
@@ -108,6 +102,16 @@
       "numPages": 0,
       "photo": "",
       "price": 0,
+      "authorId": 0
+    },
+    {
+      "id": 12,
+      "title": "Toy Story That Time Forgot",
+      "sinopsis": "",
+      "release": "2023-04-29T22:00:00.000Z",
+      "numPages": 408,
+      "photo": "http://dummyimage.com/192x100.png/dddddd/000000",
+      "price": 37.36,
       "authorId": 0
     }
   ],
