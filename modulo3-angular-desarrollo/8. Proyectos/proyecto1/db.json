@@ -238,5 +238,38 @@
       "photo": "https://xsgames.co/randomusers/avatar.php?g=female",
       "id": 12
     }
+  ],
+  "categories": [
+    {
+      "id": 1,
+     "name": "Estilo de vida",
+      "minAge": 13,
+      "color": "blue",
+      "photo": "https://picsum.photos/100"
+    },
+    {
+      "id": 2,
+     "name": "Alimentación",
+      "minAge": 13,
+      "color": "blue",
+      "photo": "https://picsum.photos/100"
+    },
+    {
+      "id": 3,
+     "name": "Deportes",
+      "minAge": 13,
+      "color": "blue",
+      "photo": "https://picsum.photos/100"
+    },
+    {
+      "id": 4,
+     "name": "No Ficción",
+      "minAge": 13,
+      "color": "blue",
+      "photo": "https://picsum.photos/100"
+    }
+
+
+
   ]
 }
