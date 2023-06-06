@@ -1,8 +1,14 @@
 {
   "books": [
     {
-      "isTrusted": true,
-      "id": 1
+      "id": 1,
+      "title": "First Sunday",
+      "sinopsis": "curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi",
+      "release": "2023-04-29T22:00:00.000Z",
+      "numPages": 498,
+      "photo": "http://dummyimage.com/170x100.png/dddddd/000000",
+      "price": 72.31,
+      "authorId": 3
     },
     {
       "id": 2,
@@ -113,6 +119,26 @@
       "photo": "http://dummyimage.com/192x100.png/dddddd/000000",
       "price": 37.36,
       "authorId": 0
+    },
+    {
+      "id": 13,
+      "title": "la vida ",
+      "sinopsis": "skhjsd",
+      "release": "2023-06-06T08:09:01.044Z",
+      "numPages": 30,
+      "photo": "http://dummyimage.com/192x100.png/dddddd/000000",
+      "price": 50,
+      "authorId": 0
+    },
+    {
+      "id": 14,
+      "title": "mismamente",
+      "sinopsis": "hola",
+      "release": "2023-06-06T08:51:44.070Z",
+      "numPages": 30,
+      "photo": "http://dummyimage.com/192x100.png/dddddd/000000",
+      "price": 5,
+      "authorId": 3
     }
   ],
   "authors": [

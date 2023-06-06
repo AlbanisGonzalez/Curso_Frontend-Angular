@@ -14,8 +14,9 @@ import { BookFormComponent } from './book-form/book-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from "../shared/shared.module";
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import { MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue:'es-ES'}

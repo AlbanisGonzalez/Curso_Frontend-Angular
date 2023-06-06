@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IBook } from '../models/book.model';
 import { BookService } from '../services/book.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthorService } from 'src/app/authors/services/author.service';
+import { IAuthor } from 'src/app/authors/models/author.model';
 
 @Component({
   selector: 'app-book-form',
@@ -16,7 +18,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class BookFormComponent implements OnInit {
 
-
   bookForm = new FormGroup({
     id: new FormControl(0),
     title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
@@ -24,12 +25,18 @@ export class BookFormComponent implements OnInit {
     numPages: new FormControl(0, [Validators.min(30)]),
     price: new FormControl(0, [Validators.required, Validators.min(5), Validators.max(500), Validators.pattern("^[0-9]+([.,][0-9]{1,2})?$")]),
     release: new FormControl(new Date()),
+    authorId: new FormControl(0,[Validators.required])
 
     // // photo: new FormControl(''),
-    // // authorId: new FormControl(null,[Validators.required])
   });
+  authors: IAuthor[] = [];
 
-  constructor(private bookService: BookService, private router: Router, private ActivatedRoute: ActivatedRoute) { }
+  constructor(
+    private bookService: BookService,
+    private router: Router,
+    private ActivatedRoute: ActivatedRoute,
+    private authorService: AuthorService
+    ) { }
 
   ngOnInit(): void {
     this.ActivatedRoute.params.subscribe(params => {
@@ -38,15 +45,21 @@ export class BookFormComponent implements OnInit {
 
       const id = parseInt(idString, 10);
       this.bookService.findById(id).subscribe(book => this.loadBookForm(book));
+
     });
+
+    // cargar los autores
+    this.authorService.findAll().subscribe(data=> this.authors = data);
   }
   loadBookForm(book: IBook): void {
+
     this.bookForm.reset({
       id: book.id,
       title: book.title,
       numPages: book.numPages,
       price: book.price,
-      release: book.release
+      release: book.release,
+      authorId: book.authorId
     });
   }
 
@@ -58,6 +71,7 @@ export class BookFormComponent implements OnInit {
     let price = this.bookForm.get('price')?.value ?? 5;
     let release = this.bookForm.get('release')?.value ?? new Date();
     let photo = "http://dummyimage.com/192x100.png/dddddd/000000";
+    let authorId = this.bookForm.get('authorId')?.value ?? 0;
 
 
 
@@ -70,7 +84,7 @@ export class BookFormComponent implements OnInit {
       numPages: numPages,
       photo: photo,
       price: price,
-      authorId: 0
+      authorId: authorId
     }
     if (id === 0)
       this.bookService.create(book).subscribe(book => this.router.navigate(['/books', book.id]));
