@@ -1,3 +1,4 @@
+import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -40,7 +41,8 @@ import { MatSelectModule} from '@angular/material/select';
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatListModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue:'es-ES'}
