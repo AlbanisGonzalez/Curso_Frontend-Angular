@@ -3,16 +3,19 @@
 
 
 <button mat-raised-button color="primary" routerLink="/books/new">
-  <mat-icon> add</mat-icon>Crear libro
+  <mat-icon> add</mat-icon>
+  Crear libro
 </button>
 
 <mat-chip-listbox aria-label="Dog selection">
-  <a routerLink="" *ngForm="let author of authors" [routerLink]="['/books/author', author.id]">
+
+  <a  *ngFor="let author of authors" [routerLink]="['/books/author', author.id]">
     <mat-chip color="primary">
-      <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu" />
-      Dog two
+      <img matChipAvatar [src]="author.photo" [alt]="author.fullName" />
+      {{author.fullName}}
     </mat-chip>
   </a>
+</mat-chip-listbox>
 
   <table mat-table [dataSource]="books" class="mat-elevation-z8">
 
