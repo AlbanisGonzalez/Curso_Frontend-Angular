@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class BookService {
+  [x: string]: any;
   url: string = "http://localhost:3000/books";
 
   constructor(private httpClient : HttpClient) { }
@@ -18,6 +19,10 @@ export class BookService {
   findById(id: number): Observable<IBook> {
     // https://jsonplaceholder.typicode.com/todos/4
     return this.httpClient.get<IBook>(`${this.url}/${id}`);
+  }
+  findAllByAuthorId(authorId:number): Observable<IBook[]> {
+    // https://jsonplaceholder.typicode.com/todos/4
+    return this.httpClient.get<IBook[]>(`${this.url}?authorId=${authorId}`);
   }
 
   // create: Crear un nuevo objeto TODO Event en el servidor

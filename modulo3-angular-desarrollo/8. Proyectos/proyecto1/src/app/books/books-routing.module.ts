@@ -29,7 +29,7 @@ const routes: Routes = [
     component: BookFormComponent
   },
   {
-    path: ':author/:id',
+    path: ':author/:authorId',
     component: BookListComponent
   },
   {
