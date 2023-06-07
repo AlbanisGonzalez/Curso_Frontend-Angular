@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import {MatInputModule}from '@angular/material/input'
 import { BooksRoutingModule } from './books-routing.module';
 import { BookListComponent } from './book-list/book-list.component';
-import { BookGalleryComponent } from '../book-gallery/book-gallery.component';
+import { BookGalleryComponent } from './book-gallery/book-gallery.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import { MatSelectModule} from '@angular/material/select';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatChipsModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue:'es-ES'}

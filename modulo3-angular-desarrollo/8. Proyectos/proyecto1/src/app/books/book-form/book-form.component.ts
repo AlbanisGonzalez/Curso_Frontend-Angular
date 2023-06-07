@@ -5,6 +5,8 @@ import { BookService } from '../services/book.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthorService } from 'src/app/authors/services/author.service';
 import { IAuthor } from 'src/app/authors/models/author.model';
+import { ICategory } from 'src/app/categories/models/category.model';
+import { CategoryService } from 'src/app/categories/service/category.service';
 
 @Component({
   selector: 'app-book-form',
@@ -25,18 +27,21 @@ export class BookFormComponent implements OnInit {
     numPages: new FormControl(0, [Validators.min(30)]),
     price: new FormControl(0, [Validators.required, Validators.min(5), Validators.max(500), Validators.pattern("^[0-9]+([.,][0-9]{1,2})?$")]),
     release: new FormControl(new Date()),
-    authorId: new FormControl(0,[Validators.required])
+    authorId: new FormControl(0, [Validators.required]),
+    categories: new FormControl<number[]>([])
 
     // // photo: new FormControl(''),
   });
   authors: IAuthor[] = [];
+  categories: ICategory[] = [];
 
   constructor(
     private bookService: BookService,
     private router: Router,
     private ActivatedRoute: ActivatedRoute,
-    private authorService: AuthorService
-    ) { }
+    private authorService: AuthorService,
+    private categoryService: CategoryService
+  ) { }
 
   ngOnInit(): void {
     this.ActivatedRoute.params.subscribe(params => {
@@ -49,17 +54,21 @@ export class BookFormComponent implements OnInit {
     });
 
     // cargar los autores
-    this.authorService.findAll().subscribe(data=> this.authors = data);
+    this.authorService.findAll().subscribe(data => this.authors = data);
+    this.categoryService.findAll().subscribe(data => this.categories = data);
   }
+
   loadBookForm(book: IBook): void {
 
     this.bookForm.reset({
       id: book.id,
       title: book.title,
+      sinopsis: book.sinopsis,
       numPages: book.numPages,
       price: book.price,
       release: book.release,
-      authorId: book.authorId
+      authorId: book.authorId,
+      categories: book.categories
     });
   }
 
@@ -72,8 +81,7 @@ export class BookFormComponent implements OnInit {
     let release = this.bookForm.get('release')?.value ?? new Date();
     let photo = "http://dummyimage.com/192x100.png/dddddd/000000";
     let authorId = this.bookForm.get('authorId')?.value ?? 0;
-
-
+    let categories = this.bookForm.get('categories')?.value ?? [];
 
     // TODO añadir validación extra de datos, si alguno está mal, hacer return y mostrar error y no guardar.
     let book: IBook = {
@@ -84,7 +92,8 @@ export class BookFormComponent implements OnInit {
       numPages: numPages,
       photo: photo,
       price: price,
-      authorId: authorId
+      authorId: authorId,
+      categories: categories
     }
     if (id === 0)
       this.bookService.create(book).subscribe(book => this.router.navigate(['/books', book.id]));

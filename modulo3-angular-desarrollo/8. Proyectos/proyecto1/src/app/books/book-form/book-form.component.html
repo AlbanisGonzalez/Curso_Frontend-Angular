@@ -3,12 +3,12 @@
 
 <form [formGroup]="bookForm" (ngSubmit)="save()">
 
-<input type="hidden" formControlName ="id">
+  <input type="hidden" formControlName="id">
 
-    <mat-form-field>
-      <mat-label>Id</mat-label>
-      <input matInput type="number" formControlName="id">
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Id</mat-label>
+    <input matInput type="number" formControlName="id">
+  </mat-form-field>
 
   <mat-form-field>
     <mat-label>Título</mat-label>
@@ -63,6 +63,14 @@
     <mat-error *ngIf="bookForm.get('authorId')?.invalid &&
       bookForm.get('authorId')?.touched">Es obligatorio seleccionar un autor
     </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Géneros o categorías </mat-label>
+    <mat-select formControlName="categories" multiple>
+      <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+    </mat-select>
+    <mat-hint>Puedes seleccionar más de una categoría. </mat-hint>
   </mat-form-field>
 
 

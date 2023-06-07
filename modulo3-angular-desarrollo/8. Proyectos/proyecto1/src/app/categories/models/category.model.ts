@@ -4,5 +4,4 @@ export interface ICategory {
   minAge: number;
   color: string;
   photo: string;
-
 }
