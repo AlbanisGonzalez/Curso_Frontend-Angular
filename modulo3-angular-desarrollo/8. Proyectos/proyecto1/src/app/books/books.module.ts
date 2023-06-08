@@ -19,7 +19,7 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import { MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
-
+import{MatSnackBarModule} from '@angular/material/snack-bar'
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatNativeDateModule,
     MatSelectModule,
     MatListModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue:'es-ES'}
