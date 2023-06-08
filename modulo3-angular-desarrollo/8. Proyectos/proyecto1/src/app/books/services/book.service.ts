@@ -1,7 +1,7 @@
+import { IBook } from './../models/book.model';
 import { Injectable } from '@angular/core';
-import { IBook } from '../models/book.model';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,16 @@ export class BookService {
   }
 
   // deleteById
-  deleteById(id: number): void {
-    this.httpClient.delete(`${this.url}/${id}`);
+ // Opción 1
+  // deleteById(id: number): Observable<{}> {
+  //  return this.httpClient.delete(`${this.url}/${id}`);
+  // }
+
+  // Opción 2:
+  httpOptions = {
+    observe: 'response' as 'body'
+  }
+  deleteById(id: number): Observable<HttpResponse<{}>> {
+    return this.httpClient.delete<HttpResponse<{}>>(`${this.url}/${id}`, this.httpOptions);
   }
 }
