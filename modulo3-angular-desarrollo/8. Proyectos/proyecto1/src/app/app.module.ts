@@ -14,12 +14,14 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BooksModule } from './books/books.module';
 import { AuthorsModule } from './authors/authors.module';
 import { CategoriesModule } from './categories/categories.module';
+import { AuthorDetailComponent } from './autors/author-detail/author-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
+    AuthorDetailComponent,
 
   ],
   imports: [
