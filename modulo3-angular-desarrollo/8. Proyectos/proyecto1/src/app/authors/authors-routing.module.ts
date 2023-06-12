@@ -1,13 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthorDetailComponent } from '../autors/author-detail/author-detail.component';
 
-const routes: Routes = [
-  {
-    path: ':id',
-    component: AuthorDetailComponent
-  },
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
