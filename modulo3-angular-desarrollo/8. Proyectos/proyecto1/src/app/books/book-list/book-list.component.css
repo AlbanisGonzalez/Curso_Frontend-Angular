@@ -30,3 +30,12 @@ table{
   margin-top:15px;
   text-align: center;
 }
+
+.list-header {
+ text-align: center;
+}
+
+.list-header-img {
+  border-radius: 50%;
+  max-width: 100px;
+}
