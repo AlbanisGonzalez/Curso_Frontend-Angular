@@ -1,9 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService){}
 
   @Get()
   getHello(): string {
@@ -49,5 +50,37 @@ export class AppController {
         age: 25,
       },
     ];
+  }
+
+  //URL con parámetros
+
+  @Get('hello/:id')
+  getHelloById(@Param('id') id: string): any {
+    console.log(id);
+    return {
+      id: id,
+      fullName: 'hello',
+    };
+  }
+
+  //Con más de un parámetro: mostrar nombre completo
+  //http://localhost:3000/first-name/Alba/last-name/Gonzalez
+  @Get('first-name/:firstName/last-name/:lastName')
+  getFullName(
+    @Param('firstName') firstName: string,
+    @Param('lastName') lastName: string,
+  ): any {
+    console.log(firstName);
+    console.log(lastName);
+
+    return {
+      fullName: `${firstName} ${lastName}`,
+      saludo: `Hola ${firstName}`,
+    };
+  }
+  @Get('hello-param/:id1/:id2')
+  getHelloParam(@Param() params: any): void {
+    console.log(params.id1);
+    console.log(params.id2);
   }
 }
