@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, ConflictException, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { IBook } from './book.model';
 
 @Controller('books')
@@ -59,8 +59,19 @@ export class BookController {
         //Actualizar en base de datos 
         //book = this.bookService.save(book)...
 
-        return book; //200
+        return book; //200 Ok
+    }
+    @Delete(':id')
+    deleteById(@Param('id', ParseIntPipe) id: number){
+        if (true)
+        throw new NotFoundException('Entity Book Not Found, cant update');
+        try{
+            //this.bookService.deleteById(id)
+         } catch(error){
+            throw new ConflictException('No se puede borrar el libro');
+            }
+        }
+        //this.bookService.deleteById(id)
     }
 
 
-}
