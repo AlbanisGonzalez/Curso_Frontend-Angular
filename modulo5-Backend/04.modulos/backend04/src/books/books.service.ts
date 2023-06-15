@@ -1,36 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { title } from 'process';
 import { IBook } from './books.model';
 
 @Injectable()
 export class BooksService {
+    
     private books: IBook[] = [
-        { id: 1, title: 'Book 1', price: 49.99, author: { id: 1, name: 'Author 1', city: 'Madrid' } },
-        { id: 2, title: 'Book 2', price: 49.99, author: { id: 2, name: 'Author 1', city: 'Madrid' } },
-        { id: 3, title: 'Book 3', price: 49.99, author: { id: 3, name: 'Author 2', city: 'León' } },
-        { id: 4, title: 'Book 4', price: 49.99, author: { id: 4, name: 'Author 2', city: 'León' } },
+        { id: 1, title: 'Book 1', price: 49.99, author: { id: 1, name: 'Author 1', city: 'Madrid'} },
+        { id: 2, title: 'Book 2', price: 49.99, author: { id: 1, name: 'Author 1', city: 'Madrid'} },
+        { id: 3, title: 'Book 3', price: 49.99, author: { id: 2, name: 'Author 2', city: 'León'} },
+        { id: 4, title: 'Book 4', price: 49.99, author: { id: 2, name: 'Author 2', city: 'León'} },
     ];
 
     constructor() {}
 
+    findAll(): IBook[] {
+        return this.books;
+    }
 
-        findAll(): IBook[] {
-            return this.books;
-        }
+    findById(id: number): IBook | undefined {
+        return this.books.find(book => book.id === id); // find devuelve un objeto
+    }
 
-        findById(id: number): IBook | undefined {
-            return this.books.find(book => book.id === id); // find devuelve un objeto
-        }
-
-        findAllByTitleContains(title: string): IBook[] {
-            return this.books.filter(book =>
-                book.title.toLowerCase().includes(title.toLowerCase()
-                ));
-        }
-
-        findAllByAuthorId(id: number): IBook[]{
-            
-        }
+    findAllByTitleContains(title: string): IBook[] {
+        return this.books.filter(book => 
+            book.title.toLowerCase().includes(title.toLowerCase())
+        ); 
+    }
+    findAllByAuthorId(authorId: number): IBook[] {
+        return this.books.filter(book => book.author.id === authorId);
+    }
 
     public save(book: IBook): IBook {
         this.books.push(book);
@@ -54,10 +52,11 @@ export class BooksService {
         );
         if (position === -1)
             throw new Error("404 not found");
-        return this.books.splice(position, 1).length === 1;
+        return this.books.splice(position, 1).length === 1;  
     }
 
     deleteAll() {
         this.books = [];
     }
+
 }
