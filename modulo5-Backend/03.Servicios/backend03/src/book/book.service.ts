@@ -4,12 +4,15 @@ import { IBook } from './book.model';
 @Injectable()
 export class BookService {
 
-    private books: IBook[] = [
 
+    private books: IBook[] = [
+        { id: 1, title: 'Book 1', price: 49.99 },
+        { id: 2, title: 'Book 2', price: 49.99 },
+        { id: 3, title: 'Book 3', price: 49.99 },
+        { id: 4, title: 'Book 4', price: 49.99 },
     ];
 
     constructor() {
-        
     }
 
     findAll(): IBook[] {
@@ -18,6 +21,12 @@ export class BookService {
 
     findById(id: number): IBook | undefined {
         return this.books.find(book => book.id === id); // find devuelve un objeto
+    }
+
+    findAllByTitleContains(title: string): IBook[] {
+        return this.books.filter(book => 
+            book.title.toLowerCase().includes(title.toLowerCase()
+        )); 
     }
 
     public save(book: IBook): IBook {
@@ -43,6 +52,10 @@ export class BookService {
         if (position === -1)
             throw new Error("404 not found");
         return this.books.splice(position, 1).length === 1;  
+    }
+
+    deleteAll() {
+        this.books = [];
     }
 
 }
