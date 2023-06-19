@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthorService } from 'src/app/authors/services/author.service';
 import { IAuthor } from 'src/app/authors/models/author.model';
 import { ICategory } from 'src/app/categories/models/category.model';
-import { CategoryService } from 'src/app/categories/service/category.service';
+import { CategoryService } from 'src/app/categories/services/category.service';
 
 @Component({
   selector: 'app-book-form',
