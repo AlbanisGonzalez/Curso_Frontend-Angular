@@ -5,7 +5,7 @@ import { BooksModule } from './books/books.module';
 import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [BooksModule, DatabaseModule],
+  imports: [],
   controllers: [AppController],
   providers: [AppService],
 })
