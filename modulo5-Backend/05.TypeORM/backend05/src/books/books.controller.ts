@@ -17,8 +17,14 @@ export class BooksController {
         return this.bookService.findById(id);
     }
 
-    @Get('title/:title')
+    @Get('title-eq/:title')
     findAllByTitleEquals(@Param("title") title: string): Promise<Book[]> {
         return this.bookService.findAllByTitleEquals(title);
+    }
+
+    @Get('title-like/:title')
+    findAllByTitleLike(@Param('title') title: string): Promise<Book[]> {
+        return this.bookService.findAllByTitleLike(title);
+
     }
 }
