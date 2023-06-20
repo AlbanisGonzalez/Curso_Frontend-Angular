@@ -9,8 +9,8 @@ import { Book } from 'src/books/books.model';
             host: 'localhost',
             port: 3306,
             username: 'root',
-            // password: 'admin', // sustituir por variable de entorno
-            password: process.env.NEST_PASSWORD,
+            password: 'admin', // sustituir por variable de entorno
+            // password: process.env.NEST_PASSWORD,
             database: 'backend_nest',
             entities: [
                 // __dirname + 'src/**/*.model.ts'
@@ -23,8 +23,13 @@ import { Book } from 'src/books/books.model';
 export class DatabaseModule {}
 
 // CREAR VARIABLE DE ENTORNO EN MAC
-// Símbolo virgulilla en MAX: “ALT+Ñ”
+// Símbolo virgulilla en MAX: “option+Ñ”
 // nano ~/.zshrc
 // Al final del archivo: export NEST_PASSWORD=admin
 // source ~/.zshrc
 // echo $NEST_PASSWORD
+
+// Powershell
+// setx NEST_PASSWORD "admin"
+// echo $env:NEST_PASSWORD
+
