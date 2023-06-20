@@ -26,14 +26,14 @@ export class BooksService {
         console.log(title);
         return this.bookRepo.find({
             where: {
-                title: title
+                title: title // coincidencia exacta 
             }
         });
     }
     findAllByTitleLike(title: string): Promise<Book[]> {
         return this.bookRepo.find({
             where: {
-                title: ILike(`%${title}%`)
+                title: ILike(`%${title}%`) // que contenga una palabra 
             }
         });
     }
