@@ -4,10 +4,18 @@ import { Book } from './books.model';
 
 @Controller('books')
 export class BooksController {
-    constructor (private bookService : BooksService){}
+
+    constructor(private bookService: BooksService) {}
+
     @Get()
-    findAll():Promise<Book[]>{
+    findAll(): Promise<Book[]> {
         return this.bookService.findAll();
     }
+
+    @Get(':id')
+    findById(id: number): Promise<Book | null> {
+        return this.bookService.findById(id);
+    }
+
     
 }
