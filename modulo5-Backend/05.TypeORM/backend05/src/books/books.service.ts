@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './books.model';
-import { Between, ILike, Repository } from 'typeorm';
+import { Between, ILike, MoreThanOrEqual, Repository } from 'typeorm';
 
 @Injectable()
 export class BooksService {
@@ -46,4 +46,26 @@ export class BooksService {
             }
         });
     }
+
+    // finAllByPublishedTrue
+    findAllByPublishedTrue(): Promise<Book[]> {
+        return this.bookRepo.find({
+            where:{
+                published: true
+            }
+        });
+    }
+
+    findAllByQuantityAndPrice(quantity: number, price: number):Promise<Book[]> {
+        return this.bookRepo.find({
+            where:{
+                quantity: MoreThanOrEqual(quantity),
+                price: MoreThanOrEqual(price)
+            }
+        });
+    }
+    // findAllOrderByPriceAsc
+    // create
+    // update 
+
 }
