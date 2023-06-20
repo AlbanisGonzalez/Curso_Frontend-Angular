@@ -1,11 +1,11 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { Book } from './books.model';
 
 @Controller('books')
 export class BooksController {
 
-    constructor(private bookService: BooksService) {}
+    constructor(private bookService: BooksService) { }
 
     @Get()
     findAll(): Promise<Book[]> {
@@ -13,9 +13,12 @@ export class BooksController {
     }
 
     @Get(':id')
-    findById(id: number): Promise<Book | null> {
+    findById(@Param("id") id: number): Promise<Book | null> {
         return this.bookService.findById(id);
     }
 
-    
+    @Get('title/:title')
+    findAllByTitleEquals(@Param("title") title: string): Promise<Book[]> {
+        return this.bookService.findAllByTitleEquals(title);
+    }
 }
