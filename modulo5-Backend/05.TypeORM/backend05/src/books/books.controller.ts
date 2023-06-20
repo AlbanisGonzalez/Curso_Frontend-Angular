@@ -27,4 +27,10 @@ export class BooksController {
         return this.bookService.findAllByTitleLike(title);
 
     }
+    @Get('price/min/:min/max/:max')
+    findAllByPriceBetween(
+        @Param('min') min: number, 
+        @Param('max') max: number): Promise<Book[]>{
+        return this.bookService.findAllByPriceBetween(min, max);
+    }
 }

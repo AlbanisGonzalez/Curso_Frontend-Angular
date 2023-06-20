@@ -16,11 +16,12 @@ import { Book } from 'src/books/books.model';
                 // __dirname + 'src/**/*.model.ts'
                 Book
             ],
-            synchronize: true // generar tablas automáticamente en base a entidades
+            synchronize: true, // generar tablas automáticamente en base a entidades
+            logging: true
         })
     ]
 })
-export class DatabaseModule {}
+export class DatabaseModule { }
 
 // CREAR VARIABLE DE ENTORNO EN MAC
 // Símbolo virgulilla en MAX: “option+Ñ”

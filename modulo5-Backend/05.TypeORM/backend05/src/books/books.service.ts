@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './books.model';
-import { ILike, Repository } from 'typeorm';
+import { Between, ILike, Repository } from 'typeorm';
 
 @Injectable()
 export class BooksService {
@@ -34,6 +34,15 @@ export class BooksService {
         return this.bookRepo.find({
             where: {
                 title: ILike(`%${title}%`) // que contenga una palabra 
+            }
+        });
+    }
+    findAllByPriceBetween(minPrice: number, maxPrice: number): Promise<Book[]> {
+        console.log(minPrice);
+        console.log(maxPrice);
+        return this.bookRepo.find({
+            where: {
+                price: Between(minPrice, maxPrice) // que contenga una palabra 
             }
         });
     }
