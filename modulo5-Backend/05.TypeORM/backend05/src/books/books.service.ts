@@ -83,27 +83,46 @@ export class BooksService {
         return book;
 
     }
+
+    //update
     async update(book: Book): Promise<Book> {
-        let bookFromDB = await this.bookRepo.findOne({ 
+        let bookFromDB = await this.bookRepo.findOne({
             where: {
                 id: book.id
             }
-         });
+        });
 
-         if(!bookFromDB) throw new NotFoundException('Libro no encontrado');
+        if (!bookFromDB) throw new NotFoundException('Libro no encontrado');
 
-         try {
+        try {
             bookFromDB.price = book.price;
             bookFromDB.published = book.published;
             bookFromDB.quantity = book.quantity;
             bookFromDB.title = book.title;
             await this.bookRepo.update(bookFromDB.id, bookFromDB);
-            
+
             return bookFromDB;
-         } catch (error) {
+        } catch (error) {
             throw new ConflictException('Error actualizando el libro');
-         }
+        }
+    }
+    //delete
+    async deleteById(id: number): Promise<void> {
+
+        let exist = await this.bookRepo.exist({
+            where: {
+                id: id
+            }
+        });
+
+        if(!exist) throw new NotFoundException('Not found');
+
+        try {
+            await this.bookRepo.delete(id);
+        } catch (error) {
+            throw new ConflictException('No se puede borrar')
+        }
+
     }
 
 }
-

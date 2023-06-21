@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { Book } from './books.model';
 
@@ -46,13 +46,13 @@ export class BooksController {
     }
 
     @Get('ordered-by-price-asc')
-    findAllOrderByPriceAsc(): Promise<Book[]>{
+    findAllOrderByPriceAsc(): Promise<Book[]> {
         return this.bookService.findAllOrderByPriceAsc();
 
     }
 
     @Post()
-    async create(@Body() book: Book): Promise< Book>{
+    async create(@Body() book: Book): Promise<Book> {
         return await this.bookService.create(book);
     }
 
@@ -61,6 +61,12 @@ export class BooksController {
         return await this.bookService.update(book);
     }
 
+    @Delete(':id')
+    async deleteById(
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<void> {
+        return await this.bookService.deleteById(id);
+    }
 
 
 
