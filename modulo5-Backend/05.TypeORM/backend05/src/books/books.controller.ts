@@ -43,6 +43,11 @@ export class BooksController {
         @Param('quantity') quantity: number,
         @Param('price') price: number): Promise<Book[]> {
         return this.bookService.findAllByPublishedTrue();
+    }
+
+    @Get('ordered-by-price-asc')
+    findAllOrderByPriceAsc(): Promise<Book[]>{
+        return this.bookService.findAllOrderByPriceAsc();
 
     }
 

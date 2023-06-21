@@ -50,21 +50,29 @@ export class BooksService {
     // finAllByPublishedTrue
     findAllByPublishedTrue(): Promise<Book[]> {
         return this.bookRepo.find({
-            where:{
+            where: {
                 published: true
             }
         });
     }
 
-    findAllByQuantityAndPrice(quantity: number, price: number):Promise<Book[]> {
+    findAllByQuantityAndPrice(quantity: number, price: number): Promise<Book[]> {
         return this.bookRepo.find({
-            where:{
+            where: {
                 quantity: MoreThanOrEqual(quantity),
                 price: MoreThanOrEqual(price)
             }
         });
     }
     // findAllOrderByPriceAsc
+    findAllOrderByPriceAsc(): Promise<Book[]> {
+        return this.bookRepo.find({
+            order: {
+                price: "ASC"
+            }
+        })
+    }
+
     // create
     // update 
 
