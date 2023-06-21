@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './books.model';
 import { Between, ILike, MoreThanOrEqual, Repository } from 'typeorm';
@@ -72,8 +72,20 @@ export class BooksService {
             }
         })
     }
-
     // create
+    create(book: Book): Book{
+        try{
+        this.bookRepo.save(book);
+    } catch(error){
+        console.log(error.message);
+        throw new ConflictException('No se ha podido guardar el mensaje')
+    }
+        return book;
+
+    }
     // update 
+    async update (book:Book){
+        let bookFromDb= await this
+    }
 
 }
