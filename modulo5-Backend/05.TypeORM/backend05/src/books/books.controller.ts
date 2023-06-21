@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { Book } from './books.model';
 
@@ -54,6 +54,11 @@ export class BooksController {
     @Post()
     async create(@Body() book: Book): Promise< Book>{
         return await this.bookService.create(book);
+    }
+
+    @Put()
+    async update(@Body() book: Book): Promise<Book> {
+        return await this.bookService.update(book);
     }
 
 

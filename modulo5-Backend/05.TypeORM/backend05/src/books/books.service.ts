@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './books.model';
 import { Between, ILike, MoreThanOrEqual, Repository } from 'typeorm';
@@ -73,19 +73,37 @@ export class BooksService {
         })
     }
     // create
-    create(book: Book): Book{
-        try{
-        this.bookRepo.save(book);
-    } catch(error){
-        console.log(error.message);
-        throw new ConflictException('No se ha podido guardar el mensaje')
-    }
+    create(book: Book): Book {
+        try {
+            this.bookRepo.save(book);
+        } catch (error) {
+            console.log(error.message);
+            throw new ConflictException('No se ha podido guardar el mensaje')
+        }
         return book;
 
     }
-    // update 
-    async update (book:Book){
-        let bookFromDb= await this
+    async update(book: Book): Promise<Book> {
+        let bookFromDB = await this.bookRepo.findOne({ 
+            where: {
+                id: book.id
+            }
+         });
+
+         if(!bookFromDB) throw new NotFoundException('Libro no encontrado');
+
+         try {
+            bookFromDB.price = book.price;
+            bookFromDB.published = book.published;
+            bookFromDB.quantity = book.quantity;
+            bookFromDB.title = book.title;
+            await this.bookRepo.update(bookFromDB.id, bookFromDB);
+            
+            return bookFromDB;
+         } catch (error) {
+            throw new ConflictException('Error actualizando el libro');
+         }
     }
 
 }
+
