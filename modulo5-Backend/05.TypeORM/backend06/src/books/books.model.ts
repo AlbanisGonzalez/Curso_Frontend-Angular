@@ -25,6 +25,10 @@ export class Book {
     published: boolean;
 
 
+    //author ManyToOne
+    
+
+
 
 
 

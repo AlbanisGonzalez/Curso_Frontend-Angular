@@ -7,7 +7,7 @@ export class Author {
     id: number;
 
     @Column({ length: 50 })
-    name: string
+    name: string;
 
     @Column({ length: 50 })
     email: string;
