@@ -1,72 +1,179 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { BooksService } from './books.service';
+/* eslint-disable */
+import { ConflictException, Delete, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './books.model';
+import { Between, ILike, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 
-@Controller('books')
-export class BooksController {
+@Injectable()
+export class BooksService {
 
-    constructor(private bookService: BooksService) { }
+    constructor(
+        @InjectRepository(Book) private bookRepo: Repository<Book>
+    ){}
 
-    @Get()
     findAll(): Promise<Book[]> {
-        return this.bookService.findAll();
+        // SELECT * FROM books;
+        return this.bookRepo.find();
     }
 
-    @Get(':id')
-    findById(@Param("id") id: number): Promise<Book | null> {
-        return this.bookService.findById(id);
+    findAllWithRelations(): Promise<Book[]> {
+        return this.bookRepo.find({
+            relations: {
+                author: true
+            }
+        });
     }
 
-    @Get('title-eq/:title')
-    findAllByTitleEquals(@Param("title") title: string): Promise<Book[]> {
-        return this.bookService.findAllByTitleEquals(title);
+    // Una proyección consiste en extraer campos concretos
+    findAllProjections(): Promise<Book[]> {
+        return this.bookRepo.find({
+            select: {
+                id: true,
+                isbn: true,
+                price: true,
+                author: {
+                    id: true,
+                    name: true
+                }
+            },
+            relations: {
+                author: true
+            }
+        });
     }
 
-    @Get('title-like/:title')
-    findAllByTitleLike(@Param('title') title: string): Promise<Book[]> {
-        return this.bookService.findAllByTitleLike(title);
+    findAllByAuthorId(authorId: number): Promise<Book[]> {
+        return this.bookRepo.find({
+            relations: {
+                author: true
+            },
+            where: {
+                author: {
+                    id: authorId
+                }
+            }
+        });
+    }
 
+    findById(id: number): Promise<Book | null> {
+        // SELECT * FROM books WHERE id = 1;
+        console.log(id);
+        return this.bookRepo.findOne({ 
+            where: {
+                id: id
+            }
+         });
     }
-    @Get('price/min/:min/max/:max')
-    findAllByPriceBetween(
-        @Param('min') min: number,
-        @Param('max') max: number): Promise<Book[]> {
-        return this.bookService.findAllByPriceBetween(min, max);
+
+    findAllByTitleEquals(title: string): Promise<Book[]> {
+        console.log(title);
+        return this.bookRepo.find({
+            where: {
+                title: title // coincidencia exacta
+            }
+        });
     }
-    @Get('published')
+
+    findAllByTitleLike(title: string): Promise<Book[]> {
+        console.log(title);
+        return this.bookRepo.find({
+            where: {
+                title: ILike(`%${title}%`) // contenga una palabra
+            }
+        });
+    }
+
+    findAllByPriceBetween(minPrice: number, maxPrice: number): Promise<Book[]> {
+        console.log(minPrice);
+        console.log(maxPrice);
+
+        return this.bookRepo.find({ 
+            where: {
+                price: Between(minPrice, maxPrice)
+            }
+        });
+    }
+
     findAllByPublishedTrue(): Promise<Book[]> {
-        return this.bookService.findAllByPublishedTrue();
-
-    }
-    @Get('quantity/:quantity/price/price')
-    findAllByQuantityAndPrice(
-        @Param('quantity') quantity: number,
-        @Param('price') price: number): Promise<Book[]> {
-        return this.bookService.findAllByPublishedTrue();
+        return this.bookRepo.find({
+            where: {
+                published: true
+            }
+        });
     }
 
-    @Get('ordered-by-price-asc')
+    findAllByQuantityAndPrice(quantity: number, 
+                              price: number): Promise<Book[]> {
+            return this.bookRepo.find({
+                where: {
+                    quantity: MoreThanOrEqual(quantity),
+                    price: MoreThanOrEqual(price)
+                }
+            });
+    }
+
+    // findAllOrderByPriceAsc
     findAllOrderByPriceAsc(): Promise<Book[]> {
-        return this.bookService.findAllOrderByPriceAsc();
+        return this.bookRepo.find({
+            order: {
+                price: "ASC"
+            }
+        });
+    }
+
+    async create(book: Book): Promise<Book> {
+        try {
+            return await this.bookRepo.save(book);
+        } catch (error) {
+            console.log(error.message);
+            throw new ConflictException('No se ha podido guardar el libro.');
+        }
+    }
+
+
+    async update(book: Book): Promise<Book> {
+        let bookFromDB = await this.bookRepo.findOne({ 
+            where: {
+                id: book.id
+            }
+         });
+
+         if(!bookFromDB) throw new NotFoundException('Libro no encontrado');
+
+         try {
+            bookFromDB.price = book.price;
+            bookFromDB.published = book.published;
+            bookFromDB.quantity = book.quantity;
+            bookFromDB.title = book.title;
+            await this.bookRepo.update(bookFromDB.id, bookFromDB);
+
+            return bookFromDB;
+         } catch (error) {
+            throw new ConflictException('Error actualizando el libro');
+         }
+    }
+
+
+    async deleteById(id: number): Promise<void> {
+
+        let exist = await this.bookRepo.exist({
+            where: {
+                id: id
+            }
+        });
+
+        if(!exist) throw new NotFoundException('Not found');
+
+        try {
+            await this.bookRepo.delete(id);
+        } catch (error) {
+            throw new ConflictException('No se puede borrar')
+        }
 
     }
 
-    @Post()
-    async create(@Body() book: Book): Promise<Book> {
-        return await this.bookService.create(book);
-    }
 
-    @Put()
-    async update(@Body() book: Book): Promise<Book> {
-        return await this.bookService.update(book);
-    }
 
-    @Delete(':id')
-    async deleteById(
-        @Param('id', ParseIntPipe) id: number
-    ): Promise<void> {
-        return await this.bookService.deleteById(id);
-    }
 
 
 

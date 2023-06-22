@@ -1,53 +1,98 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Delete, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './books.model';
-import { Between, ILike, MoreThanOrEqual, Repository } from 'typeorm';
+import { Between, ILike, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 
 @Injectable()
 export class BooksService {
 
     constructor(
         @InjectRepository(Book) private bookRepo: Repository<Book>
-    ) { }
+    ){}
 
     findAll(): Promise<Book[]> {
+        // SELECT * FROM books;
         return this.bookRepo.find();
     }
 
-    findById(id: number): Promise<Book | null> {
-        console.log(id);
-        return this.bookRepo.findOne({
-            where: {
-                id: id
+    findAllWithRelations(): Promise<Book[]> {
+        return this.bookRepo.find({
+            relations: {
+                author: true
             }
         });
     }
+
+    // Una proyección consiste en extraer campos concretos
+    findAllProjections(): Promise<Book[]> {
+        return this.bookRepo.find({
+            select: {
+                id: true,
+                isbn: true,
+                price: true,
+                author: {
+                    id: true,
+                    name: true
+                }
+            },
+            relations: {
+                author: true
+            }
+        });
+    }
+
+    findAllByAuthorId(authorId: number): Promise<Book[]> {
+        return this.bookRepo.find({
+            relations: {
+                author: true
+            },
+            where: {
+                author: {
+                    id: authorId
+                }
+            }
+        });
+    }
+
+    findById(id: number): Promise<Book | null> {
+        // SELECT * FROM books WHERE id = 1;
+        console.log(id);
+        return this.bookRepo.findOne({ 
+            where: {
+                id: id
+            }
+         });
+    }
+
     findAllByTitleEquals(title: string): Promise<Book[]> {
         console.log(title);
         return this.bookRepo.find({
             where: {
-                title: title // coincidencia exacta 
-            }
-        });
-    }
-    findAllByTitleLike(title: string): Promise<Book[]> {
-        return this.bookRepo.find({
-            where: {
-                title: ILike(`%${title}%`) // que contenga una palabra 
-            }
-        });
-    }
-    findAllByPriceBetween(minPrice: number, maxPrice: number): Promise<Book[]> {
-        console.log(minPrice);
-        console.log(maxPrice);
-        return this.bookRepo.find({
-            where: {
-                price: Between(minPrice, maxPrice) // que contenga una palabra 
+                title: title // coincidencia exacta
             }
         });
     }
 
-    // finAllByPublishedTrue
+    findAllByTitleLike(title: string): Promise<Book[]> {
+        console.log(title);
+        return this.bookRepo.find({
+            where: {
+                title: ILike(`%${title}%`) // contenga una palabra
+            }
+        });
+    }
+
+    findAllByPriceBetween(minPrice: number, maxPrice: number): Promise<Book[]> {
+        console.log(minPrice);
+        console.log(maxPrice);
+
+        return this.bookRepo.find({ 
+            where: {
+                price: Between(minPrice, maxPrice)
+            }
+        });
+    }
+
     findAllByPublishedTrue(): Promise<Book[]> {
         return this.bookRepo.find({
             where: {
@@ -56,45 +101,45 @@ export class BooksService {
         });
     }
 
-    findAllByQuantityAndPrice(quantity: number, price: number): Promise<Book[]> {
-        return this.bookRepo.find({
-            where: {
-                quantity: MoreThanOrEqual(quantity),
-                price: MoreThanOrEqual(price)
-            }
-        });
+    findAllByQuantityAndPrice(quantity: number, 
+                              price: number): Promise<Book[]> {
+            return this.bookRepo.find({
+                where: {
+                    quantity: MoreThanOrEqual(quantity),
+                    price: MoreThanOrEqual(price)
+                }
+            });
     }
+
     // findAllOrderByPriceAsc
     findAllOrderByPriceAsc(): Promise<Book[]> {
         return this.bookRepo.find({
             order: {
                 price: "ASC"
             }
-        })
+        });
     }
-    // create
-    create(book: Book): Book {
+
+    async create(book: Book): Promise<Book> {
         try {
-            this.bookRepo.save(book);
+            return await this.bookRepo.save(book);
         } catch (error) {
             console.log(error.message);
-            throw new ConflictException('No se ha podido guardar el mensaje')
+            throw new ConflictException('No se ha podido guardar el libro.');
         }
-        return book;
-
     }
 
-    //update
+
     async update(book: Book): Promise<Book> {
-        let bookFromDB = await this.bookRepo.findOne({
+        let bookFromDB = await this.bookRepo.findOne({ 
             where: {
                 id: book.id
             }
-        });
+         });
 
-        if (!bookFromDB) throw new NotFoundException('Libro no encontrado');
+         if(!bookFromDB) throw new NotFoundException('Libro no encontrado');
 
-        try {
+         try {
             bookFromDB.price = book.price;
             bookFromDB.published = book.published;
             bookFromDB.quantity = book.quantity;
@@ -102,11 +147,12 @@ export class BooksService {
             await this.bookRepo.update(bookFromDB.id, bookFromDB);
 
             return bookFromDB;
-        } catch (error) {
+         } catch (error) {
             throw new ConflictException('Error actualizando el libro');
-        }
+         }
     }
-    //delete
+
+
     async deleteById(id: number): Promise<void> {
 
         let exist = await this.bookRepo.exist({
@@ -124,5 +170,10 @@ export class BooksService {
         }
 
     }
+
+
+
+
+
 
 }
