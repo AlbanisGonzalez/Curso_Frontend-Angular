@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 @Entity()
@@ -18,8 +18,14 @@ export class Author {
     @CreateDateColumn({ name: 'created_date' })
     createdDate: Date;
 
-    @UpdateDateColumn({name:'updated_date'})
+    @UpdateDateColumn({ name: 'updated_date' })
     updatedDate: Date;
+
+    // location OneToOne
+
+    @OneToOne(() => Location, { cascade: true })
+    @JoinColumn()// obligatorio
+    location: Location;
 
 
 }
