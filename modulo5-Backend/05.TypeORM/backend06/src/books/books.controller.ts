@@ -111,7 +111,7 @@ export class BooksController {
             "id": 2,
         }
     }
-    
+
     */
     @Put()
     async update(@Body() book: Book): Promise<Book> {
@@ -125,6 +125,14 @@ export class BooksController {
         @Param('id', ParseIntPipe) id: number
     ): Promise<void> {
         return await this.bookService.deleteById(id);
+    }
+
+    
+    @Delete('author-id/:authorId')
+    async deleteAllByAuthorId(
+        @Param('authorId', ParseIntPipe) authorId: number
+    ): Promise<void> {
+        return await this.bookService.deleteAllByAuthorId(authorId);
     }
 
 

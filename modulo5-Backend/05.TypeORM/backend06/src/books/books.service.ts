@@ -2,7 +2,7 @@
 import { ConflictException, Delete, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './books.model';
-import { Between, ILike, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+import { Between, ILike, In, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 
 @Injectable()
 export class BooksService {
@@ -55,6 +55,8 @@ export class BooksService {
             }
         });
     }
+
+    // lo mismo para findAllByEditorialId
 
     findById(id: number): Promise<Book | null> {
         // SELECT * FROM books WHERE id = 1;
@@ -176,7 +178,34 @@ export class BooksService {
 
     }
 
+    async deleteAllByAuthorId(authorId: number) {
 
+        // Opcion 1
+        // let books = await this.bookRepo.find({
+        //     select: {
+        //         id: true            
+        //     },
+        //     relations: {
+        //         author: false
+        //     },
+        //     where: {
+        //         author: {
+        //             id: authorId
+        //         }
+        //     }
+        // });
+        // let ids = books.map(book => book.id)
+        // await this.bookRepo.delete(ids);
+
+        // Opcion 2: una sola sentencia sql
+        await this.bookRepo.delete({
+            author: {
+                id: authorId
+            }
+        });
+
+
+    }
 
 
 
