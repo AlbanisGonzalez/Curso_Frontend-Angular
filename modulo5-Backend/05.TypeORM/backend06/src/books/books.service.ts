@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ConflictException, Delete, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './books.model';
@@ -18,7 +19,8 @@ export class BooksService {
     findAllWithRelations(): Promise<Book[]> {
         return this.bookRepo.find({
             relations: {
-                author: true
+                author: true,
+                editorial: true
             }
         });
     }

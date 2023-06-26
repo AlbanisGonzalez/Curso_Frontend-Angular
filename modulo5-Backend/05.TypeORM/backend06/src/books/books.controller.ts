@@ -73,13 +73,19 @@ export class BooksController {
     /*
     Cambiar ISBN:
 
-        {
+    {
         "id": 0,
-        "title": "libro postman",
-        "isbn": "111111111",
-        "price": "2.45",
-        "quantity": 50,
-        "published": false
+        "title": "book postman2",
+        "isbn": "77777777",
+        "price": "11.00",
+        "quantity": 1,
+        "published": true,
+        "author": {
+            "id": 1
+        },
+        "editorial": {
+            "id": 1
+        }
     }
     */
     @Post()
