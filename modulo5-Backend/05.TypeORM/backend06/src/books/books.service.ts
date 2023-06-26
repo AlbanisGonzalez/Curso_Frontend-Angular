@@ -146,6 +146,9 @@ export class BooksService {
             bookFromDB.published = book.published;
             bookFromDB.quantity = book.quantity;
             bookFromDB.title = book.title;
+            bookFromDB.author = book.author;
+            bookFromDB.editorial = book.editorial;
+
             await this.bookRepo.update(bookFromDB.id, bookFromDB);
 
             return bookFromDB;

@@ -94,6 +94,25 @@ export class BooksController {
     }
     
 
+    /*
+    Solo actualiza un libro existente, no se debe crear uno nuevo:
+
+    {
+        "id": 1,
+        "title": "book1",
+        "isbn": "1111111",
+        "price": "15.00",
+        "quantity": 5,
+        "published": true,
+        "author": {
+            "id": 2,
+        },
+        "editorial": {
+            "id": 2,
+        }
+    }
+    
+    */
     @Put()
     async update(@Body() book: Book): Promise<Book> {
         return await this.bookService.update(book);
