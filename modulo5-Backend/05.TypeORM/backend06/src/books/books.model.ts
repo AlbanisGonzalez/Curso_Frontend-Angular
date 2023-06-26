@@ -1,4 +1,5 @@
 import { Author } from "src/authors/authors.model";
+import { Editorial } from "src/editorials/editorials.model";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -11,24 +12,29 @@ export class Book {
     @Column()
     title: string;
 
-    @Column({unique: true, length: 13})
+    @Column({ unique: true, length: 13 })
     isbn: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2})
+    @Column({ type: 'decimal', precision: 10, scale: 2 })
     price: number;
 
-    @CreateDateColumn({name: 'created_date'})
+    @CreateDateColumn({ name: 'created_date' })
     createdDate: Date;
 
-    @Column({type: 'int'})
+    @Column({ type: 'int' })
     quantity: number;
 
-    @Column({type: 'boolean', default: false})
+    @Column({ type: 'boolean', default: false })
     published: boolean;
 
     // author ManyToOne
 
     @ManyToOne(() => Author)
-    @JoinColumn({ name: 'id_author'})
+    @JoinColumn({ name: 'id_author' })
     author: Author;
+    
+    @ManyToOne(() => Editorial)
+    @JoinColumn({ name: 'id_editorial' })
+    editorial: Editorial;
+
 }
