@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Author } from 'src/authors/authors.model';
 import { Book } from 'src/books/books.model';
+import { Category } from 'src/categories/categories.model';
 import { Editorial } from 'src/editorials/editorials.model';
 import { Location } from "src/locations/locations.model";
-
 
 @Module({
     imports: [
@@ -18,14 +18,14 @@ import { Location } from "src/locations/locations.model";
             database: 'backend_nest',
             entities: [
                 // __dirname + 'src/**/*.model.ts'
-                Book, Author, Editorial, Location, 
+                Book, Author, Editorial, Location, Category
             ],
             synchronize: true, // generar tablas automáticamente en base a entidades
             logging: true
         })
     ]
 })
-export class DatabaseModule { }
+export class DatabaseModule {}
 
 // CREAR VARIABLE DE ENTORNO EN MAC
 // Símbolo virgulilla en MAX: “option+Ñ”
