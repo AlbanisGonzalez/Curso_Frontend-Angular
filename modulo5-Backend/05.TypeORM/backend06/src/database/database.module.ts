@@ -5,6 +5,7 @@ import { Book } from 'src/books/books.model';
 import { Category } from 'src/categories/categories.model';
 import { Editorial } from 'src/editorials/editorials.model';
 import { Location } from "src/locations/locations.model";
+import { User } from 'src/users/users.model';
 
 @Module({
     imports: [
@@ -18,7 +19,7 @@ import { Location } from "src/locations/locations.model";
             database: 'backend_nest',
             entities: [
                 // __dirname + 'src/**/*.model.ts'
-                Book, Author, Editorial, Location, Category
+                Book, Author, Editorial, Location, Category, User
             ],
             synchronize: true, // generar tablas automáticamente en base a entidades
             logging: true
@@ -37,4 +38,5 @@ export class DatabaseModule {}
 // Powershell
 // setx NEST_PASSWORD "admin"
 // echo $env:NEST_PASSWORD
+
 
