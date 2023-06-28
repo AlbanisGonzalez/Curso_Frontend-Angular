@@ -155,12 +155,16 @@ export class BooksService {
             bookFromDB.author = book.author;
             bookFromDB.editorial = book.editorial;
 
-            let categoryIds = book.categories.map(cat => cat.id);
-            let categories = await this.categoryService.findAllByIds(categoryIds);
-            bookFromDB.categories = categories;
-            await this.bookRepo.update(bookFromDB.id, bookFromDB);
+            
+            // Opción 1: buscar las categorías
+            // let categoryIds = book.categories.map(cat => cat.id);
+            // let categories = await this.categoryService.findAllByIds(categoryIds);
+            // bookFromDB.categories = categories;
 
-            return bookFromDB;
+            // Opción 2: cargar las categorías directamente
+            bookFromDB.categories = book.categories;
+            return await this.bookRepo.save(bookFromDB);
+
          } catch (error) {
             console.log(error);
             throw new ConflictException('Error actualizando el libro');
