@@ -1,6 +1,7 @@
 import { Author } from "src/authors/authors.model";
+import { Category } from "src/categories/categories.model";
 import { Editorial } from "src/editorials/editorials.model";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
@@ -12,29 +13,34 @@ export class Book {
     @Column()
     title: string;
 
-    @Column({ unique: true, length: 13 })
+    @Column({unique: true, length: 13})
     isbn: string;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2 })
+    @Column({type: 'decimal', precision: 10, scale: 2})
     price: number;
 
-    @CreateDateColumn({ name: 'created_date' })
+    @CreateDateColumn({name: 'created_date'})
     createdDate: Date;
 
-    @Column({ type: 'int' })
+    @Column({type: 'int'})
     quantity: number;
 
-    @Column({ type: 'boolean', default: false })
+    @Column({type: 'boolean', default: false})
     published: boolean;
 
-    // author ManyToOne
-
     @ManyToOne(() => Author)
-    @JoinColumn({ name: 'id_author' })
+    @JoinColumn({ name: 'id_author'})
     author: Author;
-    
+
     @ManyToOne(() => Editorial)
-    @JoinColumn({ name: 'id_editorial' })
+    @JoinColumn({ name: 'id_editorial'})
     editorial: Editorial;
 
+    @ManyToMany(() => Category, {cascade: true})
+    @JoinTable({
+        name: 'book_category', 
+        joinColumn: {name: 'id_book'},
+        inverseJoinColumn: {name: 'id_category'}
+    })
+    categories: Category[];
 }

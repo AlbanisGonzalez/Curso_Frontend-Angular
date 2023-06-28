@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './categories.model';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Category])], // Tabla Book
+  imports: [TypeOrmModule.forFeature([Category])],
   controllers: [CategoriesController],
   providers: [CategoriesService]
 })
