@@ -3,12 +3,14 @@ import { ConflictException, Delete, Injectable, NotFoundException } from '@nestj
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './books.model';
 import { Between, ILike, In, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+import { CategoriesService } from 'src/categories/categories.service';
 
 @Injectable()
 export class BooksService {
 
     constructor(
-        @InjectRepository(Book) private bookRepo: Repository<Book>
+        @InjectRepository(Book) private bookRepo: Repository<Book>,
+        private categoryService: CategoriesService
     ){}
 
     findAll(): Promise<Book[]> {
@@ -20,7 +22,8 @@ export class BooksService {
         return this.bookRepo.find({
             relations: {
                 author: true,
-                editorial: true
+                editorial: true,
+                categories: true
             }
         });
     }
@@ -144,6 +147,7 @@ export class BooksService {
          if(!bookFromDB) throw new NotFoundException('Libro no encontrado');
 
          try {
+            console.log(book);
             bookFromDB.price = book.price;
             bookFromDB.published = book.published;
             bookFromDB.quantity = book.quantity;
@@ -151,10 +155,14 @@ export class BooksService {
             bookFromDB.author = book.author;
             bookFromDB.editorial = book.editorial;
 
+            let categoryIds = book.categories.map(cat => cat.id);
+            let categories = await this.categoryService.findAllByIds(categoryIds);
+            bookFromDB.categories = categories;
             await this.bookRepo.update(bookFromDB.id, bookFromDB);
 
             return bookFromDB;
          } catch (error) {
+            console.log(error);
             throw new ConflictException('Error actualizando el libro');
          }
     }
